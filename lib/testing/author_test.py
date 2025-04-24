@@ -20,20 +20,21 @@ class TestAuthor:
         assert author_2.name == "Nathaniel Hawthorne"
 
     def test_name_is_immutable_string(self):
-        """author name is of type str and cannot change"""
-        author_1 = Author("Carry Bradshaw")
-        author_2 = Author("Nathaniel Hawthorne")
+     """author name is of type str and cannot change"""
+    author_1 = Author("Carry Bradshaw")
+    author_2 = Author("Nathaniel Hawthorne")
 
-        assert isinstance(author_1.name, str)
-        assert isinstance(author_2.name, str)
+    assert isinstance(author_1.name, str)
+    assert isinstance(author_2.name, str)
 
-        # comment out the next two lines if using Exceptions
+    # Uncomment the next lines if using Exceptions
+    with pytest.raises(AttributeError):
         author_1.name = "ActuallyTopher"
-        assert author_1.name == "Carry Bradshaw"
 
-        # comment out the next two lines if using Exceptions
+    with pytest.raises(AttributeError):
         author_2.name = 2
-        assert author_2.name == "Nathaniel Hawthorne"
+
+ 
 
         # uncomment the next two lines if using Exceptions
         # with pytest.raises(Exception):

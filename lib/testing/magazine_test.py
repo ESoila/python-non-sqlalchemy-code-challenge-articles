@@ -27,13 +27,13 @@ class TestMagazine:
         magazine_1.name = "New Yorker"
         assert magazine_1.name == "New Yorker"
 
-        # comment out the next two lines if using Exceptions
-        magazine_2.name = 2
-        assert magazine_2.name == "AD"
+        # Test for invalid name (non-string)
+        with pytest.raises(ValueError):  # Changed to ValueError
+            magazine_2.name = 2
 
-        # uncomment the next two lines if using Exceptions
-        # with pytest.raises(Exception):
-        #     Magazine(2, "Numbers")
+        # Test for invalid name at initialization
+        with pytest.raises(ValueError):  # Changed to ValueError
+            Magazine(2, "Numbers")
 
     def test_name_len(self):
         """magazine name is between 2 and 16 characters, inclusive"""
@@ -43,21 +43,13 @@ class TestMagazine:
         assert 2 <= len(magazine_1.name) <= 16
         assert 2 <= len(magazine_2.name) <= 16
 
-        # comment out the next two lines if using Exceptions
-        magazine_1.name = "New Yorker Plus X"
-        assert magazine_1.name == "Vogue"
+        # Test for name length exceeding max limit
+        with pytest.raises(ValueError):  # Changed to ValueError
+            magazine_1.name = "New Yorker Plus X"  # Too long name
 
-        # comment out the next two lines if using Exceptions
-        magazine_2.name = "A"
-        assert magazine_2.name == "AD"
-
-        # uncomment the next two lines if using Exceptions
-        # with pytest.raises(Exception):
-        #     magazine_1.name = "New Yorker Plus X"
-
-        # uncomment the next two lines if using Exceptions
-        # with pytest.raises(Exception):
-        #     magazine_2.name = "A"
+        # Test for name length being too short
+        with pytest.raises(ValueError):  # Changed to ValueError
+            magazine_2.name = "A"  # Too short name
 
     def test_has_category(self):
         """Magazine is initialized with a category"""
@@ -80,30 +72,23 @@ class TestMagazine:
 
         assert isinstance(magazine_1.category, str)
 
-        # comment out the next two lines if using Exceptions
-        magazine_2.category = 2
-        assert magazine_2.category == "Architecture"
-        
-        assert isinstance(magazine_2.category, str)
+        # Test for invalid category (non-string)
+        with pytest.raises(ValueError):  # Changed to ValueError
+            magazine_2.category = 2
 
-        # uncomment the next two lines if using Exceptions
-        # with pytest.raises(Exception):
-        #     Magazine("GQ", 2)
+        # Test for empty string category
+        with pytest.raises(ValueError):  # Changed to ValueError
+            magazine_2.category = ""  # Expecting ValueError here
 
     def test_category_len(self):
         """magazine category has length greater than 0"""
         magazine_1 = Magazine("Vogue", "Fashion")
 
-        assert magazine_1.category != ""
+        assert magazine_1.category != ""  # Check that category is not empty
 
-        # comment out the next three lines if using Exceptions
-        magazine_1.category = ""
-        assert magazine_1.category == "Fashion"
-        assert magazine_1.category != ""
-
-        # uncomment the next two lines if using Exceptions
-        # with pytest.raises(Exception):
-        #     magazine_1.category = ""
+        # Test for empty category (this should raise an exception)
+        with pytest.raises(ValueError):  # Changed to ValueError
+            magazine_1.category = ""  # Empty category should not be allowed
 
     def test_has_many_articles(self):
         """magazine has many articles"""
